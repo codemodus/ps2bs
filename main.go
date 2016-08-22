@@ -142,7 +142,11 @@ func run(o *options) error {
 		}
 
 		defer func() {
-			if aErr = f.Close(); aErr != nil {
+			if err := f.Close(); err != nil {
+				if aErr == nil {
+					aErr = err
+				}
+
 				return
 			}
 		}()
